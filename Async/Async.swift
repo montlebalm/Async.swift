@@ -9,17 +9,17 @@
 import Foundation
 
 func iterate<I, O>(tasks: [I], complete: (NSError?, [O]) -> (), iterator: (I, (NSError?, O) -> ()) -> ()) {
-  var tempResults: [(Int, O)] = []
+  var temp: [(Int, O)] = []
   
   let next = { (err: NSError?, result: O, index: Int) -> () in
     if err != nil {
       complete(err, [])
     } else {
-      tempResults.append((index, result))
+      temp.append((index, result))
       
-      if tempResults.count == tasks.count {
-        let sortedTempResults = tempResults.sorted { $0.0 < $1.0 }
-        let results = sortedTempResults.map { $0.1 }
+      if temp.count == tasks.count {
+        let sortedTemp = temp.sorted { $0.0 < $1.0 }
+        let results = sortedTemp.map { $0.1 }
         complete(nil, results)
       }
     }
@@ -40,7 +40,7 @@ class Async {
     }
   }
   
-  class func parallel<T>(tasks: [((NSError?, T) -> ()) -> ()], complete: (NSError?, [T]) -> ()) {
+  class func parallel<O>(tasks: [((NSError?, O) -> ()) -> ()], complete: (NSError?, [O]) -> ()) {
     iterate(tasks, complete) { task, next in
       dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0)) {
         task(next)
@@ -48,7 +48,7 @@ class Async {
     }
   }
   
-  class func series<T>(tasks: [((NSError?, T) -> ()) -> ()], complete: (NSError?, [T]) -> ()) {
+  class func series<O>(tasks: [((NSError?, O) -> ()) -> ()], complete: (NSError?, [O]) -> ()) {
     iterate(tasks, complete) { task, next in
       task(next)
     }
