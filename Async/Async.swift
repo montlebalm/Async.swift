@@ -8,7 +8,7 @@
 
 import Foundation
 
-func iterate<I, O>(tasks: [I], complete: (NSError?, [O]) -> (), iterator: (I, (NSError?, O) -> ()) -> ()) {
+func _map<I, O>(tasks: [I], complete: (NSError?, [O]) -> (), iterator: (I, (NSError?, O) -> ()) -> ()) {
   var temp: [(Int, O)] = []
   
   let next = { (err: NSError?, result: O, index: Int) -> () in
@@ -32,16 +32,43 @@ func iterate<I, O>(tasks: [I], complete: (NSError?, [O]) -> (), iterator: (I, (N
   }
 }
 
-class Async {
-  
-  class func map<I, O>(items: [I], transform: (I, (NSError?, O) -> ()) -> (), complete: (NSError?, [O]) -> ()) {
-    iterate(items, complete) { item, next in
-      transform(item, next)
+func _each<I>(tasks: [I], complete: (NSError?) -> (), iterator: (I, (NSError?) -> ()) -> ()) {
+  var remaining = tasks.count
+  let next = { (err: NSError?, index: Int) -> () in
+    if err != nil {
+      complete(err)
+    } else {
+      remaining -= 1
+
+      if remaining == 0 {
+        complete(nil)
+      }
     }
   }
   
+  for i in 0..<tasks.count {
+    iterator(tasks[i]) { err in
+      next(err, i)
+    }
+  }
+}
+
+class Async {
+
+  class func each<I>(items: [I], transform: (I, (NSError?) -> ()) -> (), complete: (NSError?) -> ()) {
+    _each(items, complete) { item, next in
+      dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0)) {
+        transform(item, next)
+      }
+    }
+  }
+
+  class func map<I, O>(items: [I], transform: (I, (NSError?, O) -> ()) -> (), complete: (NSError?, [O]) -> ()) {
+    _map(items, complete, transform)
+  }
+  
   class func parallel<O>(tasks: [((NSError?, O) -> ()) -> ()], complete: (NSError?, [O]) -> ()) {
-    iterate(tasks, complete) { task, next in
+    _map(tasks, complete) { task, next in
       dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0)) {
         task(next)
       }
@@ -49,7 +76,7 @@ class Async {
   }
   
   class func series<O>(tasks: [((NSError?, O) -> ()) -> ()], complete: (NSError?, [O]) -> ()) {
-    iterate(tasks, complete) { task, next in
+    _map(tasks, complete) { task, next in
       task(next)
     }
   }
