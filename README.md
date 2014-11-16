@@ -1,7 +1,7 @@
 Async
 =====
 
-Port of the [coalyn/async](caolan-async) library for Swift.
+Port of the [coalyn/async](https://github.com/caolan/async) library for Swift.
 
 ## Documentation
 
@@ -14,5 +14,3 @@ Port of the [coalyn/async](caolan-async) library for Swift.
 
 - parallel
 - series
-
-[caolan-async]: https://github.com/caolan/async
