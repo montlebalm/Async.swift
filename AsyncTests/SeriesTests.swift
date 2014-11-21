@@ -11,7 +11,7 @@ import XCTest
 class SeriesTests: XCTestCase {
 
   func testPreservesOrder() {
-    let expect = expectationWithDescription("Wait for sleep")
+    let expect = expectationWithDescription("Wait for testPreservesOrder")
 
     Async.series([slow, fast]) { err, results in
       XCTAssertEqual([results[0].text, results[1].text], ["slow", "fast"])
