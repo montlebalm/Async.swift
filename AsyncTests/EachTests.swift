@@ -21,11 +21,11 @@ class EachTests: XCTestCase {
       callback(nil)
     }
 
-    Async.each([1, 0], transform) { err in
+    Async.each([1, 0], transform: transform) { err in
       XCTAssertLessThan(results[0].0, results[1].0)
       expect.fulfill()
     }
-    
+
     waitForExpectationsWithTimeout(2) { err in }
   }
 

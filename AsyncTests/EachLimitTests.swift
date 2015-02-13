@@ -21,11 +21,11 @@ class EachLimitTests: XCTestCase {
       callback(nil)
     }
 
-    Async.eachLimit([1, 0], limit: 2, transform) { err in
+    Async.eachLimit([1, 0], limit: 2, iterator: transform) { err in
       XCTAssertLessThan(results[0].0, results[1].0)
       expect.fulfill()
     }
-    
+
     waitForExpectationsWithTimeout(2) { err in }
   }
 
@@ -46,11 +46,11 @@ class EachLimitTests: XCTestCase {
       callback(nil)
     }
 
-    Async.eachLimit([0, 0], limit: 1, transform) { err in
+    Async.eachLimit([0, 0], limit: 1, iterator: transform) { err in
       XCTAssertTrue(!isParallel, "Should not be parallel")
       expect.fulfill()
     }
-    
+
     waitForExpectationsWithTimeout(3) { err in }
   }
 

@@ -9,9 +9,9 @@
 import XCTest
 
 class MapTests: XCTestCase {
-  
+
   func testPreservesOrder() {
-    Async.map(["one", "two"], uppercaseString) { err, results in
+    Async.map(["one", "two"], iterator: uppercaseString) { err, results in
       XCTAssertEqual(results, ["ONE", "TWO"], "called transform")
     }
   }
@@ -21,5 +21,5 @@ class MapTests: XCTestCase {
   func uppercaseString(input: String, complete: (NSError?, String) -> ()) {
     complete(nil, input.uppercaseString)
   }
-  
+
 }

@@ -10,8 +10,12 @@ import Foundation
 
 extension Async {
 
-  class func waterfall<O>(tasks: [([O], (NSError?, O) -> ()) -> ()], complete: (NSError?, [O]) -> ()) {
+  class func waterfall<O>(
+    tasks: [([O], (NSError?, O) -> ()) -> ()],
+    complete: (NSError?, [O]) -> ()
+  ) {
     var results: [O] = []
+
     let next = { (err: NSError?, result: O) -> () in
       if err != nil {
         complete(err, [])
@@ -23,7 +27,7 @@ extension Async {
         }
       }
     }
-    
+
     var queue = dispatch_queue_create(nil, DISPATCH_QUEUE_SERIAL)
 
     for task in tasks {
@@ -32,5 +36,5 @@ extension Async {
       }
     }
   }
-  
+
 }
