@@ -17,9 +17,9 @@ extension Async {
   ) {
     var queue = dispatch_queue_create(nil, DISPATCH_QUEUE_CONCURRENT)
 
-    _map(items, complete: complete) { input, callback in
+    _map(items, complete: complete) { item, callback in
       dispatch_async(queue) {
-        iterator(input, callback)
+        iterator(item, callback)
       }
     }
   }
