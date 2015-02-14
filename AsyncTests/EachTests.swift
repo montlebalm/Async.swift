@@ -11,17 +11,19 @@ import XCTest
 class EachTests: XCTestCase {
 
   func testRunsInParallel() {
-    var results: [(Int, NSTimeInterval)] = []
+    var completedOrder: [String] = []
 
-    func transform(sleepTime: Int, callback: (NSError?) -> ()) {
-      sleep(UInt32(sleepTime))
-      let result = (sleepTime, NSDate().timeIntervalSince1970)
-      results.append(result)
+    func transform(text: String, callback: (NSError?) -> ()) {
+      if text == "slow" {
+        sleep(1)
+      }
+
+      completedOrder.append(text)
       callback(nil)
     }
 
-    Async.each([1, 0], transform: transform) { err in
-      XCTAssertLessThan(results[0].0, results[1].0)
+    Async.each(["slow", "fast"], transform: transform) { err in
+      XCTAssertEqual(completedOrder, ["fast", "slow"])
     }
   }
 
