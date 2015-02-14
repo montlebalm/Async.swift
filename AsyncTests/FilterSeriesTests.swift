@@ -1,5 +1,5 @@
 //
-//  FilterTests.swift
+//  FilterSeriesTests.swift
 //  Async
 //
 //  Created by Chris Montrois on 2/13/15.
@@ -8,19 +8,19 @@
 
 import XCTest
 
-class FilterTests: XCTestCase {
+class FilterSeriesTests: XCTestCase {
 
   func testPreservesOrder() {
     func isEven(num: Int, callback: (Bool) -> ()) {
       callback(num % 2 == 0)
     }
 
-    Async.filter([1, 2, 3, 4], iterator: isEven) { results in
+    Async.filterSeries([1, 2, 3, 4], iterator: isEven) { results in
       XCTAssertEqual(results, [2, 4])
     }
   }
 
-  func testRunsInParallel() {
+  func testRunsInSeries() {
     var completedOrder: [String] = []
 
     func throttle(text: String, callback: (Bool) -> ()) {
@@ -32,9 +32,9 @@ class FilterTests: XCTestCase {
       callback(true)
     }
 
-    Async.filter(["slow", "fast"], iterator: throttle) { results in
-      XCTAssertEqual(completedOrder, ["fast", "slow"])
+    Async.filterSeries(["slow", "fast"], iterator: throttle) { results in
+      XCTAssertEqual(completedOrder, ["slow", "fast"])
     }
   }
-
+  
 }
