@@ -9,6 +9,7 @@ Port of the [coalyn/async](https://github.com/caolan/async) library for Swift.
 
 - each
 - eachLimit
+- filter
 - map
 - reduce
 
