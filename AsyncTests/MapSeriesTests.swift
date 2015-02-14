@@ -1,26 +1,26 @@
 //
-//  MapTests.swift
+//  MapSeriesTests.swift
 //  Async
 //
-//  Created by Chris Montrois on 11/14/14.
-//  Copyright (c) 2014 bigevilrobot. All rights reserved.
+//  Created by Chris Montrois on 2/13/15.
+//  Copyright (c) 2015 bigevilrobot. All rights reserved.
 //
 
 import XCTest
 
-class MapTests: XCTestCase {
+class MapSeriesTests: XCTestCase {
 
   func testPreservesOrder() {
     func double(num: Int, complete: (NSError?, Int) -> ()) {
       complete(nil, num * 2)
     }
 
-    Async.map([1, 2], iterator: double) { err, results in
+    Async.mapSeries([1, 2], iterator: double) { err, results in
       XCTAssertEqual(results, [2, 4])
     }
   }
 
-  func testRunsInParallel() {
+  func testRunsInSeries() {
     var completedOrder: [String] = []
 
     func throttle(text: String, callback: (NSError?, String) -> ()) {
@@ -32,9 +32,9 @@ class MapTests: XCTestCase {
       callback(nil, text)
     }
 
-    Async.map(["slow", "fast"], iterator: throttle) { err, results in
-      XCTAssertEqual(completedOrder, ["fast", "slow"])
+    Async.mapSeries(["slow", "fast"], iterator: throttle) { err, results in
+      XCTAssertEqual(completedOrder, ["slow", "fast"])
     }
   }
-
+  
 }

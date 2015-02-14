@@ -1,5 +1,5 @@
 //
-//  filterSeries.swift
+//  mapSeries.swift
 //  Async
 //
 //  Created by Chris Montrois on 2/13/15.
@@ -10,18 +10,18 @@ import Foundation
 
 extension Async {
 
-  class func filterSeries<I>(
+  class func mapSeries<I, O>(
     items: [I],
-    iterator: (I, (Bool) -> ()) -> (),
-    complete: ([I]) -> ()
+    iterator: (I, (NSError?, O) -> ()) -> (),
+    complete: (NSError?, [O]) -> ()
   ) {
     var queue = dispatch_queue_create(nil, DISPATCH_QUEUE_SERIAL)
 
-    _filter(items, complete: complete) { item, callback in
+    _map(items, complete: complete) { item, callback in
       dispatch_sync(queue) {
         iterator(item, callback)
       }
     }
   }
-
+  
 }
