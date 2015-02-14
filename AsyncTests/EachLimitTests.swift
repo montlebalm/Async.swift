@@ -11,7 +11,6 @@ import XCTest
 class EachLimitTests: XCTestCase {
 
   func testRunsInParallel() {
-    let expect = expectationWithDescription("Wait for sleep")
     var results: [(Int, NSTimeInterval)] = []
 
     func transform(sleepTime: Int, callback: (NSError?) -> ()) {
@@ -23,14 +22,10 @@ class EachLimitTests: XCTestCase {
 
     Async.eachLimit([1, 0], limit: 2, iterator: transform) { err in
       XCTAssertLessThan(results[0].0, results[1].0)
-      expect.fulfill()
     }
-
-    waitForExpectationsWithTimeout(2) { err in }
   }
 
   func testRespectsLimit() {
-    let expect = expectationWithDescription("Wait for sleep")
     var isParallel = false
     var numParallel = 0
 
@@ -47,11 +42,8 @@ class EachLimitTests: XCTestCase {
     }
 
     Async.eachLimit([0, 0], limit: 1, iterator: transform) { err in
-      XCTAssertTrue(!isParallel, "Should not be parallel")
-      expect.fulfill()
+      XCTAssertTrue(!isParallel)
     }
-
-    waitForExpectationsWithTimeout(3) { err in }
   }
 
 }

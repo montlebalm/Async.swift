@@ -11,15 +11,30 @@ import XCTest
 class MapTests: XCTestCase {
 
   func testPreservesOrder() {
-    Async.map(["one", "two"], iterator: uppercaseString) { err, results in
-      XCTAssertEqual(results, ["ONE", "TWO"], "called transform")
+    func double(num: Int, complete: (NSError?, Int) -> ()) {
+      complete(nil, num * 2)
+    }
+
+    Async.map([1, 2], iterator: double) { err, results in
+      XCTAssertEqual(results, [2, 4])
     }
   }
 
-  // Helpers
+  func testRunsInParallel() {
+    var completedOrder: [Int] = []
 
-  func uppercaseString(input: String, complete: (NSError?, String) -> ()) {
-    complete(nil, input.uppercaseString)
+    func throttle(num: Int, callback: (NSError?, Int) -> ()) {
+      if num == 1 {
+        sleep(1)
+      }
+
+      completedOrder.append(num)
+      callback(nil, num)
+    }
+
+    Async.map([1, 2], iterator: throttle) { err, results in
+      XCTAssertEqual(completedOrder, [2, 1])
+    }
   }
 
 }

@@ -15,26 +15,16 @@ public class Async {
     complete: (NSError?, [O]) -> (),
     iterator: (I, (NSError?, O) -> ()) -> ()
   ) {
-    var temp: [(Int, O)] = []
-
-    let next = { (err: NSError?, result: O, index: Int) -> () in
-      if err != nil {
-        complete(err, [])
-      } else {
-        temp.append((index, result))
-
-        if temp.count == tasks.count {
-          // Put the results in the original order
-          let sortedTemp = temp.sorted { $0.0 < $1.0 }
-          let results = sortedTemp.map { $0.1 }
-          complete(nil, results)
-        }
-      }
-    }
+    var ongoing: [(Int, O)] = []
 
     for i in 0..<tasks.count {
       iterator(tasks[i]) { err, result in
-        next(err, result, i)
+        ongoing.append((i, result))
+
+        if err != nil || ongoing.count == tasks.count {
+          let results = ongoing.sorted({ $0.0 < $1.0 }).map({ $0.1 })
+          complete(err, results)
+        }
       }
     }
   }
@@ -60,6 +50,26 @@ public class Async {
 
     for task in tasks {
       iterator(task, next)
+    }
+  }
+
+  internal class func _reduce<I, O>(
+    tasks: [I],
+    initial: O,
+    complete: (NSError?, O) -> (),
+    iterator: (O, I, (NSError?, O) -> ()) -> ()
+  ) {
+    var remaining = tasks.count
+    var reduction = initial
+
+    for task in tasks {
+      iterator(reduction, task) { (err: NSError?, memo: O) -> () in
+        reduction = memo
+
+        if err != nil || --remaining == 0 {
+          complete(err, reduction)
+        }
+      }
     }
   }
 

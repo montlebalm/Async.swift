@@ -11,7 +11,6 @@ import XCTest
 class EachTests: XCTestCase {
 
   func testRunsInParallel() {
-    let expect = expectationWithDescription("Wait for sleep")
     var results: [(Int, NSTimeInterval)] = []
 
     func transform(sleepTime: Int, callback: (NSError?) -> ()) {
@@ -23,10 +22,7 @@ class EachTests: XCTestCase {
 
     Async.each([1, 0], transform: transform) { err in
       XCTAssertLessThan(results[0].0, results[1].0)
-      expect.fulfill()
     }
-
-    waitForExpectationsWithTimeout(2) { err in }
   }
 
 }

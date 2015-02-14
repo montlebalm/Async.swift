@@ -1,4 +1,4 @@
-Async
+Async.swift
 =====
 
 Port of the [coalyn/async](https://github.com/caolan/async) library for Swift.
@@ -10,6 +10,7 @@ Port of the [coalyn/async](https://github.com/caolan/async) library for Swift.
 - each
 - eachLimit
 - map
+- reduce
 
 ### Control Flow
 
