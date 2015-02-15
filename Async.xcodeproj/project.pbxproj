@@ -85,6 +85,7 @@
 		5C9F62401A8F13A8001F1FCF /* EachSeriesTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EachSeriesTests.swift; sourceTree = "<group>"; };
 		5C9F62431A8F1514001F1FCF /* mapSeries.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = mapSeries.swift; sourceTree = "<group>"; };
 		5C9F62461A8F155E001F1FCF /* MapSeriesTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapSeriesTests.swift; sourceTree = "<group>"; };
+		5C9F62481A8F17D1001F1FCF /* Async.podspec */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Async.podspec; sourceTree = "<group>"; };
 		5CF0244F1A1F9CE300A87324 /* EachLimitTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EachLimitTests.swift; sourceTree = "<group>"; };
 		5CF024531A1FB69C00A87324 /* waterfall.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = waterfall.swift; sourceTree = "<group>"; };
 		5CF024551A1FB88300A87324 /* WaterfallTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WaterfallTests.swift; sourceTree = "<group>"; };
@@ -117,6 +118,7 @@
 				5C9F62341A8F05D6001F1FCF /* main.swift */,
 				5C8C5EB11A8E6D61000434DE /* README.md */,
 				5C8C5EB31A8E6E43000434DE /* LICENSE */,
+				5C9F62481A8F17D1001F1FCF /* Async.podspec */,
 			);
 			path = Async;
 			sourceTree = "<group>";

@@ -1,11 +1,3 @@
-//
-//  series.swift
-//  Async
-//
-//  Created by Chris Montrois on 11/19/14.
-//  Copyright (c) 2014 bigevilrobot. All rights reserved.
-//
-
 import Foundation
 
 extension Async {
