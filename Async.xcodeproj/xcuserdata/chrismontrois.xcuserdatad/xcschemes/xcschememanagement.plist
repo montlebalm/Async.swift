@@ -9,20 +9,15 @@
 			<key>orderHint</key>
 			<integer>0</integer>
 		</dict>
-		<key>AsyncTests.xcscheme</key>
-		<dict>
-			<key>orderHint</key>
-			<integer>1</integer>
-		</dict>
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
-		<key>5C3D4DA01A13FE8000A769BD</key>
+		<key>5C2F5CAD1A915E0F002D2718</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>5C9503101A16CDD90048450D</key>
+		<key>5C2F5CB81A915E0F002D2718</key>
 		<dict>
 			<key>primary</key>
 			<true/>
