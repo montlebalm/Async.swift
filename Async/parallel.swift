@@ -2,7 +2,7 @@ import Foundation
 
 extension Async {
 
-  class func parallel<O>(
+  class public func parallel<O>(
     tasks: [((NSError?, O) -> ()) -> ()],
     complete: (NSError?, [O]) -> ()
   ) {

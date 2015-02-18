@@ -10,7 +10,7 @@ import Foundation
 
 extension Async {
 
-  class func eachSeries<I>(
+  class public func eachSeries<I>(
     items: [I],
     transform: (I, (NSError?) -> ()) -> (),
     complete: (NSError?) -> ()

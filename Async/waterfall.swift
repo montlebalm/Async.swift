@@ -2,7 +2,7 @@ import Foundation
 
 extension Async {
 
-  class func waterfall<O>(
+  class public func waterfall<O>(
     tasks: [([O], (NSError?, O) -> ()) -> ()],
     complete: (NSError?, [O]) -> ()
   ) {

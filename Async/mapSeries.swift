@@ -10,7 +10,7 @@ import Foundation
 
 extension Async {
 
-  class func mapSeries<I, O>(
+  class public func mapSeries<I, O>(
     items: [I],
     iterator: (I, (NSError?, O) -> ()) -> (),
     complete: (NSError?, [O]) -> ()
