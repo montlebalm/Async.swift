@@ -507,6 +507,7 @@
 		5CC7D7841A91AB8F00A3BF70 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				EMBEDDED_CONTENT_CONTAINS_SWIFT = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SDKROOT)/Developer/Library/Frameworks",
 					"$(inherited)",
@@ -524,6 +525,7 @@
 		5CC7D7851A91AB8F00A3BF70 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				EMBEDDED_CONTENT_CONTAINS_SWIFT = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SDKROOT)/Developer/Library/Frameworks",
 					"$(inherited)",
@@ -553,6 +555,7 @@
 				5CC7D7821A91AB8F00A3BF70 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		5CC7D7831A91AB8F00A3BF70 /* Build configuration list for PBXNativeTarget "AsyncTests" */ = {
 			isa = XCConfigurationList;
@@ -561,6 +564,7 @@
 				5CC7D7851A91AB8F00A3BF70 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
