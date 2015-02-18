@@ -2,7 +2,7 @@ import Foundation
 
 extension Async {
 
-  class func eachLimit<I>(
+  class public func eachLimit<I>(
     items: [I],
     limit: Int,
     iterator: (I, (NSError?) -> ()) -> (),

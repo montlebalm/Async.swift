@@ -2,7 +2,7 @@ import Foundation
 
 extension Async {
 
-  class func reduce<I, O>(
+  class public func reduce<I, O>(
     items: [I],
     initial: O,
     iterator: (O, I, (NSError?, O) -> ()) -> (),

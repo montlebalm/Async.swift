@@ -2,7 +2,7 @@ import Foundation
 
 extension Async {
 
-  class func detectSeries<I>(
+  class public func detectSeries<I>(
     items: [I],
     iterator: (I, (NSError?, Bool) -> ()) -> (),
     complete: (NSError?, I) -> ()

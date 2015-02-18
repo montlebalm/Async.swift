@@ -2,7 +2,7 @@ import Foundation
 
 extension Async {
 
-  class func filter<I>(
+  class public func filter<I>(
     items: [I],
     iterator: (I, (Bool) -> ()) -> (),
     complete: ([I]) -> ()

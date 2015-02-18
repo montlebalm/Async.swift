@@ -2,7 +2,7 @@ import Foundation
 
 extension Async {
 
-  class func map<I, O>(
+  class public func map<I, O>(
     items: [I],
     iterator: (I, (NSError?, O) -> ()) -> (),
     complete: (NSError?, [O]) -> ()

@@ -2,7 +2,7 @@ import Foundation
 
 extension Async {
 
-  class func filterSeries<I>(
+  class public func filterSeries<I>(
     items: [I],
     iterator: (I, (Bool) -> ()) -> (),
     complete: ([I]) -> ()

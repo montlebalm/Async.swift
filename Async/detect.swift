@@ -8,7 +8,7 @@ extension Async {
     :param: iterator the test function
     :param: complete the completion callback
   */
-  class func detect<I>(
+  class public func detect<I>(
     items: [I],
     iterator: (I, (NSError?, Bool) -> ()) -> (),
     complete: (NSError?, I) -> ()

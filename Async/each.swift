@@ -2,7 +2,7 @@ import Foundation
 
 extension Async {
 
-  class func each<I>(
+  class public func each<I>(
     items: [I],
     transform: (I, (NSError?) -> ()) -> (),
     complete: (NSError?) -> ()

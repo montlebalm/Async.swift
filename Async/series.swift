@@ -2,7 +2,7 @@ import Foundation
 
 extension Async {
 
-  class func series<O>(
+  class public func series<O>(
     tasks: [((NSError?, O) -> ()) -> ()],
     complete: (NSError?, [O]) -> ()
   ) {
